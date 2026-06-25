@@ -11,7 +11,10 @@
 
     <!-- Navbar -->
     <nav class="navbar">
-        <div class="logo">ShopHub</div>
+        <div class="logo">
+    <span class="cart-icon">🛒</span>
+    ShopHub
+ </div>
 
         <ul class="nav-links">
             <li><a href="#">Home</a></li>
@@ -26,10 +29,16 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <h1>Welcome to ShopHub</h1>
-        <p>Best products at affordable prices</p>
+    <h1 class="hero-title">
+    Shop <span> With </span>SHOPHUB
+    </h1>
 
-        <button>Shop Now</button>
+ <p class="hero-subtitle">
+    Your trusted destination for premium Products.
+ </p>
+        <button onclick="document.querySelector('.products').scrollIntoView({behavior:'smooth'})">
+    Shop Now
+        </button>
     </section>
     <!--SEARH BAR -->
     <section class="search-section">
@@ -48,7 +57,7 @@
         <button onclick="filterProducts('electronics')">
             Electronics
         </button>
-        <button onclick="filterProducts('Accessories')">
+        <button onclick="filterProducts('accessories')">
         Accessories
         </button>
     </section>
@@ -61,9 +70,31 @@
     
      </div>
    </section>
-   <script src="js/script.js"></script>
+   
+ <div class="nav-buttons">
+
+    <a href="cart.html" class="nav-btn">
+        🛒 Cart
+    </a>
+
+    <a href="orders.html" class="nav-btn">
+        📦 Orders
+    </a>
+
+ </div>
+
+ <div class="add-product-container">
+
+    <a href="add-product.html" class="nav-btn">
+        ➕ Add Product
+    </a>
+
+ </div>
+
+ <footer class="footer">
+    <p>© 2026 ShopHub | Built with HTML, CSS & JavaScript</p>
+ </footer>
+
+  <script src="js/script.js"></script>
 </body>
 </html>
-<footer class="footer">
-    <p>© 2026 ShopHub | Built with HTML, CSS & JavaScript</p>
-</footer>

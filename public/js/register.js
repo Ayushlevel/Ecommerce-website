@@ -27,4 +27,9 @@ document.getElementById("registerForm")
     const data = await response.json();
 
     alert(data.message);
+
+    if (data.message === "Registration Successful") {
+        window.location.href = "login.html";
+    }
+
 });

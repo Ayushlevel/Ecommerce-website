@@ -19,41 +19,85 @@ function displayCart() {
         return;
     }
 
-    let total = 0;
+let total = 0;
 
-    cart.forEach((product, index) => {
+cart.forEach((product, index) => {
 
-        total += Number(product.price);
+    if (!product.quantity) {
+        product.quantity = 1;
+    }
 
-        cartItems.innerHTML += `
-            <div class="cart-item">
+    total += Number(product.price) * product.quantity;
 
-                <img
-                    src="${product.image}"
-                    alt="${product.name}"
-                    width="120"
-                >
+    cartItems.innerHTML += `
+        <div class="cart-item">
 
-                <h3>${product.name}</h3>
+            <img
+                src="${product.image}"
+                alt="${product.name}"
+                width="120"
+            >
 
-                <p>Price: ₹${product.price}</p>
+            <h3>${product.name}</h3>
 
-                <button onclick="removeItem(${index})">
-                    Remove
-                </button>
+            <p>Price: ₹${product.price}</p>
 
-            </div>
+            <p>
+                Quantity:
 
-            <hr>
-        `;
-    });
+                <button onclick="decreaseQty(${index})">-</button>
 
-    totalPrice.textContent = `Total: ₹${total}`;
+                ${product.quantity}
+
+                <button onclick="increaseQty(${index})">+</button>
+            </p>
+
+            <button onclick="removeItem(${index})">
+                Remove
+            </button>
+
+        </div>
+
+        <hr>
+    `;
+ });
+
+totalPrice.textContent = `Total: ₹${total}`;
 }
 
 function removeItem(index) {
 
     cart.splice(index, 1);
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
+
+    displayCart();
+}
+function increaseQty(index) {
+
+    cart[index].quantity++;
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
+
+    displayCart();
+}
+
+function decreaseQty(index) {
+
+    if (cart[index].quantity > 1) {
+
+        cart[index].quantity--;
+
+    } else {
+
+        cart.splice(index, 1);
+    }
 
     localStorage.setItem(
         "cart",
@@ -72,13 +116,53 @@ function clearCart() {
     displayCart();
 }
 
-function checkout() {
-
+async function checkout() {
     if (cart.length === 0) {
-
         alert("Your cart is empty!");
         return;
     }
 
-    alert("Checkout feature coming next!");
+    let total = 0;
+    cart.forEach(product => {
+        total += Number(product.price) * product.quantity;
+    });
+
+    try {
+        const response = await fetch("/api/orders", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                userEmail: localStorage.getItem("userEmail"),
+                items: cart,
+                totalAmount: total
+            })
+        });
+
+        console.log("Response status:", response.status);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("Data from server:", data);
+
+        // Display the message 
+        if (data && data.message) {
+            alert(data.message);
+        } else {
+            alert("Order placed successfully!");
+        }
+
+        // Clear the cart on success
+        localStorage.removeItem("cart");
+        cart = [];
+        displayCart();
+
+    } catch (error) {
+        console.error("Error during checkout:", error);
+        alert("An error occurred during checkout. Please try again.");
+    }
 }

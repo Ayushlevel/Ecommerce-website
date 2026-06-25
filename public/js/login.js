@@ -1,4 +1,4 @@
-document. getElementById("loginForm")
+document.getElementById("loginForm")
 .addEventListener("submit", async (e) => {
 
     e.preventDefault();
@@ -23,5 +23,15 @@ document. getElementById("loginForm")
     const data = await response.json();
 
     alert(data.message);
+
+    if (data.message === "Login Successful") {
+
+        localStorage.setItem(
+            "userEmail",
+            email
+        );
+
+        window.location.href = "index.html";
+    }
 
 });

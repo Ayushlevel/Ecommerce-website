@@ -58,7 +58,21 @@ function addToCart(id) {
 
     if (!product) return;
 
-    cart.push(product);
+    const existingProduct = cart.find(
+        item => item._id === id
+    );
+
+    if (existingProduct) {
+
+        existingProduct.quantity++;
+
+    } else {
+
+        cart.push({
+            ...product,
+            quantity: 1
+        });
+    }
 
     localStorage.setItem(
         "cart",
@@ -67,42 +81,32 @@ function addToCart(id) {
 
     alert(product.name + " added to cart");
 
-    if (cartCount) {
-        cartCount.textContent = cart.length;
-    }
+    updateCartCount();
 }
 
 // Cart count
 const cartCount =
     document.getElementById("cartCount");
 
-if (cartCount) {
-    cartCount.textContent = cart.length;
-}
-
+updateCartCount();
 // Search
-const searchInput =
-    document.getElementById("searchInput");
+const searchInput = document.getElementById("searchInput");
 
-if (searchInput) {
+  searchInput.addEventListener("input", () => {
+    const searchText = searchInput.value
+    .trim()
+    .replace(/\s+/g, " ")
+    .toLowerCase();
 
-    searchInput.addEventListener("keyup", () => {
+  const filteredProducts = products.filter(product =>
+    product.name
+        .replace(/\s+/g, " ")
+        .toLowerCase()
+        .includes(searchText)
+    );
 
-        const keyword =
-            searchInput.value.toLowerCase();
-
-        const filteredProducts =
-            products.filter(product =>
-                product.name
-                    .toLowerCase()
-                    .includes(keyword)
-            );
-
-        displayProducts(filteredProducts);
-
-    });
-
-}
+    displayProducts(filteredProducts);
+});
 
 // Category filter
 function filterProducts(category) {
@@ -129,3 +133,17 @@ function openProduct(id) {
     console.log("Clicked product:", id);
     window.location.href = `product.html?id=${id}`;
 }
+
+function updateCartCount() {
+
+    if (!cartCount) return;
+
+    let totalItems = 0;
+
+    cart.forEach(item => {
+        totalItems += item.quantity || 1;
+    });
+
+    cartCount.textContent = totalItems;
+}
+
