@@ -77,7 +77,7 @@ This project was developed during the CodeAlpha Full Stack Development Internshi
 
 ## 🛒 Shopping Cart
 
-![Cart](screenshots/cart.png)
+![Cart](Screenshots/cart.png)
 
 ---
 
@@ -89,13 +89,18 @@ This project was developed during the CodeAlpha Full Stack Development Internshi
 
 ## 🔐 Login Page
 
-![Login](screenshots/login.png)
+![Login](Screenshots/login.png)
 
 ---
 
 ## 📝 Register Page
 
-![Register](screenshots/register.png)
+![Register](Screenshots/register.png)
+
+---
+## Add product
+
+![Add Product](Screenshots/add-product.png)
 
 ---
 
