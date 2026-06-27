@@ -7,34 +7,40 @@ let cart = JSON.parse(localStorage.getItem("cart")) || [];
 // Display products
 function displayProducts(productList) {
 
-    const productContainer =
-        document.getElementById("productContainer");
+    const productContainer = document.getElementById("productContainer");
 
     productContainer.innerHTML = "";
+
+    // Only center when filtered results are less than 4
+    if (productList.length < 4) {
+        productContainer.classList.add("filtered-view");
+    } else {
+        productContainer.classList.remove("filtered-view");
+    }
 
     productList.forEach(product => {
 
         productContainer.innerHTML += `
-<div class="product-card"
-     onclick="openProduct('${product._id}')">
+        <div class="product-card"
+            onclick="openProduct('${product._id}')">
 
-    <div class="image-box">
-        <img src="${product.image}" alt="${product.name}">
-    </div>
+            <div class="image-box">
+                <img src="${product.image}" alt="${product.name}">
+            </div>
 
-    <h3>${product.name}</h3>
+            <h3>${product.name}</h3>
 
-    <p>₹${product.price}</p>
+            <p>₹${product.price}</p>
 
-    <button onclick="event.stopPropagation(); addToCart('${product._id}')"> Add To Cart
-    </button>
-</div>
-`;
+            <button onclick="event.stopPropagation(); addToCart('${product._id}')">
+                Add To Cart
+            </button>
 
+        </div>
+        `;
     });
 
 }
-
 // Load products from MongoDB
 fetch("/api/products")
     .then(res => res.json())
@@ -111,23 +117,13 @@ const searchInput = document.getElementById("searchInput");
 // Category filter
 function filterProducts(category) {
 
-    if (category === "all") {
+    const filtered =
+        category === "all"
+            ? products
+            : products.filter(p => p.category === category);
 
-        displayProducts(products);
-
-    } else {
-
-        const filteredProducts =
-            products.filter(product =>
-                product.category === category
-            );
-
-        displayProducts(filteredProducts);
-
-    }
-
+    displayProducts(filtered);
 }
-
 // Open product page
 function openProduct(id) {
     console.log("Clicked product:", id);
@@ -146,4 +142,19 @@ function updateCartCount() {
 
     cartCount.textContent = totalItems;
 }
+let lastScrollY = window.scrollY;
+const navbar = document.querySelector(".navbar");
 
+window.addEventListener("scroll", () => {
+    const currentScrollY = window.scrollY;
+
+    if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        // scrolling down → hide navbar
+        navbar.classList.add("hide");
+    } else {
+        // scrolling up → show navbar
+        navbar.classList.remove("hide");
+    }
+
+    lastScrollY = currentScrollY;
+});

@@ -4,54 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShopHub</title>
-
+     <link rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <!-- Navbar -->
     <nav class="navbar">
-        <div class="logo">
-    <span class="cart-icon">🛒</span>
-    ShopHub
- </div>
 
-        <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Products</a></li>
-            <li>
-                <a href="cart.html">Cart  
-                    (<span id="cartCount"> 0 </span>)
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <div class="logo">
+        <span class="cart-icon">🛒</span>
+        <span>ShopHub</span>
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a href="index.html" class="active">
+                Home
+            </a>
+        </li>
+
+        <li>
+            <a href="#products">
+                Products
+            </a>
+        </li>
+
+        <li>
+            <a href="orders.html">
+                📦 Orders
+            </a>
+        </li>
+
+        <li>
+            <a href="add-product.html">
+                ➕ Add Product
+            </a>
+        </li>
+
+        <li>
+            <a href="cart.html" class="cart-btn">
+                🛒 Cart
+                <span id="cartCount">0</span>
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
 
     <!-- Hero Section -->
-    <section class="hero">
+   <section class="hero">
+
     <h1 class="hero-title">
-    Shop <span> With </span>SHOPHUB
+        Shop <span>Smarter</span> with ShopHub
     </h1>
 
- <p class="hero-subtitle">
-    Your trusted destination for premium Products.
- </p>
+    <p class="hero-subtitle">
+        Discover premium electronics, accessories, and gadgets at unbeatable prices.
+    </p>
+
+    <p>
         <button onclick="document.querySelector('.products').scrollIntoView({behavior:'smooth'})">
-    Shop Now
+    Shop Now →
         </button>
-    </section>
+    </p>
     <!--SEARH BAR -->
-    <section class="search-section">
-        <input
+    <div class="search-box">
+
+    <input
         type="text"
         id="searchInput"
-        placeholder="Search Products"
-        >
+        placeholder="Search Products..."
+    >
 
-    </section>
-    <!--Product Filter-->
-    <section class="filter-section">
-        <button onclick="filterProducts('all')">
+    <div class="filter-section">
+
+       <button onclick="filterProducts('all')">
             All
         </button>
         <button onclick="filterProducts('electronics')">
@@ -60,41 +91,78 @@
         <button onclick="filterProducts('accessories')">
         Accessories
         </button>
-    </section>
+    </div>
+
+</div>
+   </section>
+
+   <!--trust feature--> 
+<!-- Why Shop With Us -->
+<section class="trust-section">
+
+    <h2 class="trust-heading">Why Shop With Us?</h2>
+
+    <div class="trust-container">
+
+        <div class="trust-box">
+            <div class="icon">
+                <i class="fa-solid fa-truck-fast"></i>
+            </div>
+            <h3>Free Delivery</h3>
+            <p>Free shipping on orders above ₹999</p>
+        </div>
+
+        <div class="trust-box">
+            <div class="icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3>Secure Payment</h3>
+            <p>100% safe and encrypted checkout</p>
+        </div>
+
+        <div class="trust-box">
+            <div class="icon">
+                <i class="fa-solid fa-award"></i>
+            </div>
+            <h3>Premium Quality</h3>
+            <p>Handpicked products with top quality</p>
+        </div>
+
+        <div class="trust-box">
+            <div class="icon">
+                <i class="fa-solid fa-rotate-left"></i>
+            </div>
+            <h3>Easy Returns</h3>
+            <p>7-day hassle-free return policy</p>
+        </div>
+
+    </div>
+
+</section>
     <!-- Products Section -->
 
-  <section class="products">
+  <section class="products" id="products">
     <h2>Featured Products</h2>
 
     <div class="product-container" id="productContainer">
     
      </div>
    </section>
-   
- <div class="nav-buttons">
 
-    <a href="cart.html" class="nav-btn">
-        🛒 Cart
-    </a>
-
-    <a href="orders.html" class="nav-btn">
-        📦 Orders
-    </a>
-
- </div>
-
- <div class="add-product-container">
-
-    <a href="add-product.html" class="nav-btn">
-        ➕ Add Product
-    </a>
-
- </div>
-
+ <!-- footer section -->
  <footer class="footer">
-    <p>© 2026 ShopHub | Built with HTML, CSS & JavaScript</p>
- </footer>
 
-  <script src="js/script.js"></script>
+    <h2>ShopHub</h2>
+
+    <p>
+        Premium Electronics & Accessories
+    </p>
+
+    <p>
+        © 2026 ShopHub. All Rights Reserved.
+    </p>
+
+</footer>
+<script src="js/script.js"></script>
 </body>
 </html>
